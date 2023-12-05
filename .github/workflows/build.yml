@@ -1,0 +1,32 @@
+name: build
+
+on:
+  repository_dispatch:
+    types: [build-on-demand]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ArchiSteamFarm
+        uses: actions/checkout@v4
+        with:
+          repository: 'JustArchiNET/ArchiSteamFarm'
+          submodules: true
+      - name: Build
+        run: |
+          sed -i 's/set -eu/set -eu\n\napt update\napt install -y ca-certificates curl gnupg\nmkdir -p \/etc\/apt\/keyrings\ncurl -fsSL https:\/\/deb.nodesource.com\/gpgkey\/nodesource-repo.gpg.key | gpg --dearmor -o \/etc\/apt\/keyrings\/nodesource.gpg\necho "deb \[signed-by=\/etc\/apt\/keyrings\/nodesource.gpg\] https:\/\/deb.nodesource.com\/node_20.x nodistro main" | tee \/etc\/apt\/sources.list.d\/nodesource.list\napt update\napt install nodejs -y/g' cc.sh
+          sed -i 's/-p:UseAppHost=false//g' cc.sh
+          sed -i 's/--no-self-contained/--self-contained/g' cc.sh
+          sed -i 's/\${os_type}-\${cpu_architecture}/linux-armv6/g' cc.sh
+          docker run -w $(pwd) -v $(pwd):$(pwd) --rm taphome/dotnet-armv6:v8.0.0 ./cc.sh
+          cd out
+          cd result
+          tar -zcvf ASF.tar.gz *
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ASF-armv6
+          path: ASF.tar.gz
