@@ -22,11 +22,8 @@ jobs:
           sed -i 's/--no-self-contained/--self-contained/g' cc.sh
           sed -i 's/\${os_type}-\${cpu_architecture}/linux-armv6/g' cc.sh
           docker run -w $(pwd) -v $(pwd):$(pwd) --rm taphome/dotnet-armv6:v8.0.0 ./cc.sh
-          cd out
-          cd result
-          tar -zcvf ASF.tar.gz *
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: ASF-armv6
-          path: ASF.tar.gz
+          path: out/result
