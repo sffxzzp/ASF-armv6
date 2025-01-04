@@ -23,6 +23,7 @@ jobs:
           sed -i 's/-p:UseAppHost=false//g' cc.sh
           sed -i 's/--no-self-contained/--self-contained/g' cc.sh
           sed -i 's/\${os_type}-\${cpu_architecture}/linux-armv6/g' cc.sh
+          sed -i 's/net9.0/net8.0/g' ArchiSteamFarm/Directory.Build.props 
           docker run -w $(pwd) -v $(pwd):$(pwd) --rm taphome/dotnet-armv6:v8.0.0 ./cc.sh
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
