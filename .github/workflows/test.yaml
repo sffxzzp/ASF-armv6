@@ -9,7 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifacts
-        uses: actions/download-artifact@v4
+        uses: alextompkins/download-prior-artifact@v1
+        with:
+          name: ASF-armv6
+          path: ./
       - name: Setup Environment
         uses: uraimo/run-on-arch-action@v2
         with:
