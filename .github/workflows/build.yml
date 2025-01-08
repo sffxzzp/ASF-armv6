@@ -23,7 +23,7 @@ jobs:
           sed -i 's/-p:UseAppHost=false//g' cc.sh
           sed -i 's/--no-self-contained/--self-contained/g' cc.sh
           sed -i 's/\${os_type}-\${cpu_architecture}/linux-armv6/g' cc.sh
-          docker run -w $(pwd) -v $(pwd):$(pwd) --rm taphome/dotnet-armv6:v9.0.0 ./cc.sh
+          docker run -w $(pwd) -v $(pwd):$(pwd) --rm sffxzzp/dotnet-armv6:9.0.0 ./cc.sh
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
