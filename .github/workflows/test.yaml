@@ -22,5 +22,7 @@ jobs:
           distro: bookworm
           dockerRunArgs: |
             --volume "${PWD}/:/app"
+          install: |
+            apt-get install libicu-dev
           run: |
             /app/ArchiSteamFarm
