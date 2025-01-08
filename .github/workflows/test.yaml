@@ -1,0 +1,21 @@
+name: build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifacts
+        uses: aochmann/actions-download-artifact@1.0.4
+      - name: Setup Environment
+        uses: uraimo/run-on-arch-action@v2
+        with:
+          arch: armv6
+          distro: bookworm
+          dockerRunArgs: |
+            --volume "${PWD}/:/app"
+          run: |
+            /app/ArchiSteamFarm
