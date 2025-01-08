@@ -23,6 +23,7 @@ jobs:
           dockerRunArgs: |
             --volume "${PWD}/:/app"
           install: |
-            apt-get install libicu-dev
+            apt-get update -q -y
+            apt-get install -q -y libicu-dev
           run: |
             /app/ArchiSteamFarm
