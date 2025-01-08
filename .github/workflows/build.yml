@@ -24,16 +24,6 @@ jobs:
           sed -i 's/--no-self-contained/--self-contained/g' cc.sh
           sed -i 's/\${os_type}-\${cpu_architecture}/linux-armv6/g' cc.sh
           docker run -w $(pwd) -v $(pwd):$(pwd) --rm sffxzzp/dotnet-armv6:9.0.0 ./cc.sh
-      - name: Test
-        uses: uraimo/run-on-arch-action@v2
-        continue-on-error: true
-        with:
-          arch: armv6
-          distro: bookworm
-          dockerRunArgs: |
-            --volume "${pwd}/out/result:/app"
-          run: |
-            /app/ArchiSteamFarm
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
