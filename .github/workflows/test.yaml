@@ -13,6 +13,8 @@ jobs:
         with:
           name: ASF-armv6
           path: ./
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup Environment
         uses: uraimo/run-on-arch-action@v2
         with:
