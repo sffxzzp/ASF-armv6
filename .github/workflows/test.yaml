@@ -11,6 +11,7 @@ jobs:
         with:
           name: ASF-armv6
           path: ./
+          commitHash: "bb89d61"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup Environment
